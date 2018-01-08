@@ -79,6 +79,22 @@ If someone else wants to verify he should first import you public certificate: :
    	 -noprompt \
    	 -keystore tmp-keystore.jks
 
+Automation
+----------
+All these steps have also been automated for you in a (Makefile)[./makefile].
+
+You can simply run `make` in the directory to:
+
+- compile the Main.java class
+- bundle it into a jar
+- create a keystore and prompt for password and info
+- sign the jar
+- export the public certificate
+
+Other useful commands are `clean` to remove all generated files,
+and `verify` to create a new keystore, import the public certificate and
+verify the signed jar using that new keystore.
+
 Reference
 =========
 
