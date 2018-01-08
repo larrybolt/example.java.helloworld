@@ -47,12 +47,44 @@ For run the JAR file packed, execute the follow command: ::
 
 This show the ``Hello world`` message.
 
+Signing of jar
+--------------
+To sign the jar you need to create a keystore, you acn do this with next command: ::
+
+	 keytool -genkeypair \
+		 -alias signFiles \
+     -validity 300 \
+		 -keystore keystore.jks
+
+To export the public certificate use: ::
+
+	 keytool -export -keystore keystore.jks -alias signFiles -file public.cer
+
+For the actual signing of the jar file: ::
+
+	 jarsigner -signedjar \
+		 signed-HelloWorld.jar HelloWorld.jar signFiles \
+		 -tsa http://sha256timestamp.ws.symantec.com/sha256/timestamp \
+		 -keystore keystore.jks
+
+In order to verify the jar is correctly signed: ::
+
+	 jarsigner -verify signed-HelloWorld.jar -keystore tmp-keystore.jks
+
+If someone else wants to verify he should first import you public certificate: ::
+
+   keytool -importcert \
+   	 -file public.cer \
+   	 -storepass tmptmp \
+   	 -noprompt \
+   	 -keystore tmp-keystore.jks
+
 Reference
 =========
 
 - `java - How to run a JAR file - Stack Overflow <http://stackoverflow.com/questions/1238145/how-to-run-a-jar-file>`_.
-
 - `Setting an Application's Entry Point (The Java™ Tutorials > Deployment > Packaging Programs in JAR Files) <http://docs.oracle.com/javase/tutorial/deployment/jar/appman.html>`_.
-
 - hello world project: https://github.com/macagua/example.java.helloworld
-
+- Gist used as reference for makefile: https://gist.github.com/isaacs/62a2d1825d04437c6f08
+- using java keytool: https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html
+- how to fix the timestamp error: https://stackoverflow.com/questions/21695520/tsa-or-tsacert-timestamp-for-applet-jar-self-signed
