@@ -1,4 +1,4 @@
-example.java.helloworld
+example.java.helloworld (with signing of the jar file using a make file)
 =======================
 
 This is "Hello World" Example for Java.
@@ -53,3 +53,6 @@ Reference
 - `java - How to run a JAR file - Stack Overflow <http://stackoverflow.com/questions/1238145/how-to-run-a-jar-file>`_.
 
 - `Setting an Application's Entry Point (The Java™ Tutorials > Deployment > Packaging Programs in JAR Files) <http://docs.oracle.com/javase/tutorial/deployment/jar/appman.html>`_.
+
+- hello world project: https://github.com/macagua/example.java.helloworld
+

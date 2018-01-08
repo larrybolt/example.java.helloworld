@@ -1,3 +1,2 @@
 Manifest-version: 1.0
-Created-By: 1.0 (Macagua Corporation)
-Main-Class: HelloWorld.Main
+Created-By: 1.0 (Larry Boltovskoi)
