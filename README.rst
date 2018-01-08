@@ -81,7 +81,7 @@ If someone else wants to verify he should first import you public certificate: :
 
 Automation
 ----------
-All these steps have also been automated for you in a (Makefile)[./makefile].
+All these steps have also been automated for you in a [Makefile](makefile) .
 
 You can simply run `make` in the directory to:
 
