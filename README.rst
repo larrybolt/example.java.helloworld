@@ -51,33 +51,33 @@ Signing of jar
 --------------
 To sign the jar you need to create a keystore, you acn do this with next command: ::
 
-	 keytool -genkeypair \
-		 -alias signFiles \
-     -validity 300 \
-		 -keystore keystore.jks
+	keytool -genkeypair \
+	  -alias signFiles \
+	  -validity 300 \
+	  -keystore keystore.jks
 
 To export the public certificate use: ::
 
-	 keytool -export -keystore keystore.jks -alias signFiles -file public.cer
+	keytool -export -keystore keystore.jks -alias signFiles -file public.cer
 
 For the actual signing of the jar file: ::
 
-	 jarsigner -signedjar \
-		 signed-HelloWorld.jar HelloWorld.jar signFiles \
-		 -tsa http://sha256timestamp.ws.symantec.com/sha256/timestamp \
-		 -keystore keystore.jks
+	jarsigner -signedjar \
+	  signed-HelloWorld.jar HelloWorld.jar signFiles \
+	  -tsa http://sha256timestamp.ws.symantec.com/sha256/timestamp \
+	  -keystore keystore.jks
 
 In order to verify the jar is correctly signed: ::
 
-	 jarsigner -verify signed-HelloWorld.jar -keystore tmp-keystore.jks
+	jarsigner -verify signed-HelloWorld.jar -keystore tmp-keystore.jks
 
 If someone else wants to verify he should first import you public certificate: ::
 
-   keytool -importcert \
-   	 -file public.cer \
-   	 -storepass tmptmp \
-   	 -noprompt \
-   	 -keystore tmp-keystore.jks
+	keytool -importcert \
+	  -file public.cer \
+	  -storepass tmptmp \
+	  -noprompt \
+	 -keystore tmp-keystore.jks
 
 Automation
 ----------
