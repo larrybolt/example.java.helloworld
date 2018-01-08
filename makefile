@@ -14,7 +14,6 @@ keystore.jks:
 		-alias signFiles \
 		-validity 300 \
 		-keystore keystore.jks
-	#keytool -selfcert -alias signFiles -keystore keystore.jks
 
 signed-HelloWorld.jar: HelloWorld.jar keystore.jks
 	# 4 - sign the jar
@@ -38,14 +37,24 @@ run-class:
 	java -cp . HelloWorld.Main
 run-jar:
 	java -jar HelloWorld.jar
-verify:
+verify: all
+	# remove tmp keystore if one already exists
+	- rm tmp-keystore.jks
 	# create a new keystore
 	keytool -genkeypair \
 		-dname "cn=Unknown, ou=Unknown, o=Unknown, c=BE" \
 		-alias tmp \
 		-keypass tmptmp \
-		-keystore tmp-keystore.jks \
 		-storepass tmptmp \
-		-validity 180
-	#jarsigner -verify -verbose -certs signed-HelloWorld.jar
+		-validity 180 \
+		-keystore tmp-keystore.jks
+	# import public certificate
+	keytool -importcert \
+		-file public.cer \
+		-storepass tmptmp \
+		-noprompt \
+		-keystore tmp-keystore.jks
+	# verify the signed jar file
+	jarsigner -verify signed-HelloWorld.jar \
+		-keystore tmp-keystore.jks
 
